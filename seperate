@@ -1,0 +1,7 @@
+Class Fixnum
+  def self
+    self
+  end
+end
+
+4.self
