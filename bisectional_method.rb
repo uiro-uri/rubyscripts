@@ -1,5 +1,4 @@
-include Math
-
+include "Math"
 def bisectional_method(min, max, &func)
   mid = (min + max) /2
   executed = func.call(mid)
