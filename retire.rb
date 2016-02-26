@@ -1,12 +1,17 @@
-retire=[STDIN.gets.chomp]
-reration={}
+class Reration < Hash
+  def retire!(retired_person)
+    retired_person|=self.select{|key,value|retired_person.include?(value)}.keys
+    while(self.reject!{|key,value|retired_person.include?(key)})
+      retired_person|=self.select{|key,value|retired_person.include?(value)}.keys
+    end
+    return self
+  end
+end
+
+retired_person=STDIN.gets.chomp.split.map(&:to_sym)
+respect_reration=Reration.new
 while(s=STDIN.gets)
-  reration.merge!(Hash[*s.chomp.split(?,)])
+  respect_reration.merge!(Hash[*s.chomp.split(?,).map(&:to_sym)])
 end
 
-retire|=reration.select{|key,value|retire.include?(value)}.keys
-while(reration.reject!{|key,value|retire.include?(key)})
-  retire|=reration.select{|key,value|retire.include?(value)}.keys
-end
-
-p reration.length
+p respect_reration.retire!(retired_person).size
